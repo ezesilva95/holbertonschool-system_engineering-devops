@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -mindepth 0 -empty -printf "%p"
+find . -mindepth 0 -empty -printf "%f\n"
