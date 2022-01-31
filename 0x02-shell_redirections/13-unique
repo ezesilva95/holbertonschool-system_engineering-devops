@@ -1,2 +1,2 @@
 #!/bin/bash
-cme> | sort |uniq -u
+ls -l | sort |uniq -u
