@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type d ! -path -peint| wc - la
+ls -lR | grep ^d | wc -l
