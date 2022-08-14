@@ -3,10 +3,10 @@
 
 file_line { 'Identity file':
   path    => '/etc/ssh/ssh_config',
-  line    => 'IdentityFile ~/.ssh/school',
+  line    => ' IdentityFile ~/.ssh/school',
 }
 
-file_line { 'No Password needed':
+file_line { 'Refusing uthentication password':
   path    => '/etc/ssh/ssh_config',
-  line    => 'No PasswordAuthentication',
+  line    => ' PasswordAuthentication no',
 }
