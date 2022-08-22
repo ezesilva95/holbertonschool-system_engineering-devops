@@ -2,7 +2,6 @@
 #Install and configure HAproxy on your lb-01 server.
 
 apt-get update
-apt-get -y install nginx
 apt-get isntall -y haproxy
 cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.copy
 echo "
