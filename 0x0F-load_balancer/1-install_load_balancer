@@ -5,13 +5,13 @@ apt-get update
 apt-get install -y haproxy
 cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.copy
 echo "
-listen 4387-lb-01
+listen 4381-lb-01
         bind *:80
         mode http
         balance roundrobin
         option httpclose
         option forwardfor
-        server 4387-web-01 34.227.197.193 check
-        server 4387-web-02 52.55.214.253 check
+        server 4381-web-01 54.163.195.60 check
+        server 4381-web-02 3.87.124.19 check
 " >> /etc/haproxy/haproxy.cfg
 service haproxy restart
