@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#Install and configure HAproxy on your lb-01 server.
+
+apt-get update
+apt-get -y install nginx
+apt-get isntall -y haproxy
+cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.copy
+echo "
+listen 4381-lb-01
+	bind *:80
+	mode http
+	balance roundrobin
+	option httpclose
+	option forwardfor
+	server 4381-web-01 54.163.195.60 check
+	server 4381-web-02 3.87.124.19 check
+" >> /etc/haproxy/haproxy.cfg
+service haproxy restart
