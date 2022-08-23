@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #0. World wide web
 
-print_subd ()
+print_rec ()
 {
     printf "The subdomain %s is a " "$2"
     dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
@@ -13,9 +13,8 @@ print_subd ()
 if [ -z "$2" ]; then
    for subs in "www" "lb-01" "web-01" "web-02"
    do
-       print_subd "$1" "$subs"
+       print_rec "$1" "$subs"
    done
 else
-    print_subd "$1" "$2"
+    print_rec "$1" "$2"
 fi
-
