@@ -1,29 +1,22 @@
 #!/usr/bin/env bash
 #0. World wide web
 
-print_subd ()
-{
-    printf "is a " ; dig "$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
-    printf " record and points to "
-    dig "$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $5 }'
-    echo ""
+func() {
+    if [ "$#" -eq 1 ]; then
+        DOM=$(echo "$1")
+        for SUB in www lb-01 web-01 web-02
+        do  
+            URL=$(echo "$SUB.$DOM")
+            IP=$(dig $URL | grep -A1 'ANSWER SECTION:' | sed -n '1!p' | awk -F' ' '{print $5}')
+            echo "The subdomain $SUB is a A record and points to $IP"
+        done
+    else 
+        DOM=$(echo "$1")
+        SUB=$(echo "$2")
+        URL=$(echo "$SUB.$DOM")
+        IP=$(dig $URL | grep -A1 'ANSWER SECTION:' | sed -n '1!p' | awk -F' ' '{print $5}')
+        echo "The subdomain $SUB is a A record and points to $IP"
+    fi;
 }
 
-if [ -z "$2" ]
-then
-printf "The subdomain www "
-print_subd "www.$1"
-
-printf "The subdomain lb-01"
-print_subd "lb-01.$1"
-
-printf "The subdomain web-01 "
-print_subd "web-01.$1"
-
-printf "The subdomain web-02 "
-print_subd "web-02.$1"
-
-else
-    printf "The subdomain %s " "$2"
-    print_subd "$2.$1"
-fi
+func $1 $2
