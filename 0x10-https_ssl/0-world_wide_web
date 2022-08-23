@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#0. World wide web
+# 0. World wide web
 
 func() {
     if [ "$#" -eq 1 ]; then
