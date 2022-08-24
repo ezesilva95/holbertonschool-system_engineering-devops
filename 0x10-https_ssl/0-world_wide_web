@@ -14,7 +14,7 @@ if [ -z "$2" ]
 then
     for subdomains in "www" "lb-01" "web-01" "web-02"
     do
-        print_subdomains "$1" "$subdomains"
+        print_subd "$1" "$subdomains"
     done
 else
     print_subd "$1" "$2"
