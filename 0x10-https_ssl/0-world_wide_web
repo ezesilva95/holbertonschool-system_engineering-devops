@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
 # 0. World wide web
 
-func() {
-    if [ "$#" -eq 1 ]; then
-        DOM=$(echo "$1")
-        for SUB in www lb-01 web-01 web-02
-        do  
-            URL=$(echo "$SUB.$DOM")
-            IP=$(dig $URL | grep -A1 'ANSWER SECTION:' | sed -n '1!p' | awk -F' ' '{print $5}')
-            echo "The subdomain $SUB is a A record and points to $IP"
-        done
-    else 
-        DOM=$(echo "$1")
-        SUB=$(echo "$2")
-        URL=$(echo "$SUB.$DOM")
-        IP=$(dig $URL | grep -A1 'ANSWER SECTION:' | sed -n '1!p' | awk -F' ' '{print $5}')
-        echo "The subdomain $SUB is a A record and points to $IP"
-    fi;
+print_subd ()
+{
+    printf "The subdomain %s is a " "$2"
+    dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $4 }'
+    printf " record and points to "
+    dig "$2.$1" | grep -A1 'ANSWER SECTION:' | awk -F' ' '{ printf $5 }'
+    echo ""
 }
 
-func $1 $2
+if [ -z "$2" ]
+then
+    for subdomains in "www" "lb-01" "web-01" "web-02"
+    do
+        print_subdomains "$1" "$subdomains"
+    done
+else
+    print_subd "$1" "$2"
+fi
